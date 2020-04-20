@@ -18,21 +18,21 @@ public class DatabaseServer {
     }
 
     DatabaseCommandResult executeNextCommand(String commandText) {
-        if(commandText == null) {
+        if (commandText == null) {
             return DatabaseCommandResult.error("Command text is null");
         }
 
         String[] arguments = commandText.split(" ");
         boolean commandCorrect = false;
 
-        for(var c : DatabaseCommands.values()) {
-            if(c.name().equals(arguments[0])) {
+        for (var c : DatabaseCommands.values()) {
+            if (c.name().equals(arguments[0])) {
                 commandCorrect = true;
                 break;
             }
         }
 
-        if(!commandCorrect) {
+        if (!commandCorrect) {
             return DatabaseCommandResult.error("Command does not exist");
         }
 
