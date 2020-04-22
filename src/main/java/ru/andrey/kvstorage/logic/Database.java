@@ -11,6 +11,5 @@ public interface Database {
 
     void write(String tableName, String objectKey, String objectValue) throws DatabaseException;
 
-    //test2
     String read(String tableName, String objectKey) throws DatabaseException;
 }
