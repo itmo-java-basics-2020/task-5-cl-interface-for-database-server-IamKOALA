@@ -7,8 +7,8 @@ import java.lang.management.OperatingSystemMXBean;
 import java.util.Optional;
 
 public class CreateTableCommand implements DatabaseCommand {
-    ExecutionEnvironment env;
-    String[] arguments;
+    private ExecutionEnvironment env;
+    private String[] arguments;
 
     public CreateTableCommand(ExecutionEnvironment env, String[] arguments) {
         this.env = env;
@@ -17,14 +17,14 @@ public class CreateTableCommand implements DatabaseCommand {
 
     @Override
     public DatabaseCommandResult execute() throws DatabaseException {
-        if(arguments.length != 3) {
+        if (arguments.length != 3) {
             return DatabaseCommandResult.error("Bad arguments");
         }
 
         Optional<Database> db = env.getDatabase(arguments[1]);
         String tableName = arguments[2];
 
-        if(db.isPresent()) {
+        if (db.isPresent()) {
             db.get().createTableIfNotExists(tableName);
             return DatabaseCommandResult.success("Table was created");
         }

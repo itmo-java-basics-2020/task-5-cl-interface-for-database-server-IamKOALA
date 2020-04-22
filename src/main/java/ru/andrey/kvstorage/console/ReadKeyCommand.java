@@ -5,9 +5,9 @@ import ru.andrey.kvstorage.logic.Database;
 
 import java.util.Optional;
 
-public class ReadKeyCommand implements DatabaseCommand{
-    ExecutionEnvironment env;
-    String[] arguments;
+public class ReadKeyCommand implements DatabaseCommand {
+    private ExecutionEnvironment env;
+    private String[] arguments;
 
     public ReadKeyCommand(ExecutionEnvironment env, String[] arguments) {
         this.env = env;
@@ -16,15 +16,15 @@ public class ReadKeyCommand implements DatabaseCommand{
 
     @Override
     public DatabaseCommandResult execute() throws DatabaseException {
-        if(arguments.length != 4) {
+        if (arguments.length != 4) {
             return DatabaseCommandResult.error("Bad arguments");
         }
 
         Optional<Database> db = env.getDatabase(arguments[1]);
-        String  tableName = arguments[2],
-                key = arguments[3];
+        String tableName = arguments[2];
+        String key = arguments[3];
 
-        if(db.isPresent()) {
+        if (db.isPresent()) {
             db.get().read(tableName, key);
             return DatabaseCommandResult.success("Key reading succeed");
         }

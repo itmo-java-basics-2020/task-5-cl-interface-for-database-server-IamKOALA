@@ -6,8 +6,8 @@ import ru.andrey.kvstorage.logic.Database;
 import java.util.Optional;
 
 public class UpdateKeyCommand implements DatabaseCommand {
-    ExecutionEnvironment env;
-    String[] arguments;
+    private ExecutionEnvironment env;
+    private String[] arguments;
 
     public UpdateKeyCommand(ExecutionEnvironment env, String[] arguments) {
         this.env = env;
@@ -16,16 +16,16 @@ public class UpdateKeyCommand implements DatabaseCommand {
 
     @Override
     public DatabaseCommandResult execute() throws DatabaseException {
-        if(arguments.length != 5) {
+        if (arguments.length != 5) {
             return DatabaseCommandResult.error("Bad arguments");
         }
 
         Optional<Database> db = env.getDatabase(arguments[1]);
-        String  tableName = arguments[2],
-                key = arguments[3],
-                value = arguments[4];
+        String tableName = arguments[2];
+        String key = arguments[3];
+        String value = arguments[4];
 
-        if(db.isPresent()) {
+        if (db.isPresent()) {
             db.get().write(tableName, key, value);
             return DatabaseCommandResult.success("UpdCommand succeed");
         }
